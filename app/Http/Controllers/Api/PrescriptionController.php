@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PrescriptionResource;
 use App\Models\Prescription;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,10 @@ class PrescriptionController extends Controller
      */
     public function index()
     {
-        //
+        $prescriptions = Prescription::orderBy('id', 'desc')->paginate(10);
+        
+        return PrescriptionResource::collection($prescriptions);
+
     }
 
     /**
@@ -26,7 +30,16 @@ class PrescriptionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'required',
+            'user_id' => 'required|exists:users,id'
+        ]);
+
+        $prescription = Prescription::create($request->all());
+
+        return PrescriptionResource::make($prescription);
+
     }
 
     /**
@@ -35,9 +48,11 @@ class PrescriptionController extends Controller
      * @param  \App\Models\Prescription  $prescription
      * @return \Illuminate\Http\Response
      */
-    public function show(Prescription $prescription)
+    public function show($id)
     {
-        //
+        $prescription = Prescription::with('user')->get()->find($id);
+
+        return PrescriptionResource::make($prescription);
     }
 
     /**
@@ -49,7 +64,14 @@ class PrescriptionController extends Controller
      */
     public function update(Request $request, Prescription $prescription)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'required',
+        ]);
+
+        $prescription->update($request->all());
+
+        return PrescriptionResource::make($prescription);
     }
 
     /**
@@ -60,6 +82,8 @@ class PrescriptionController extends Controller
      */
     public function destroy(Prescription $prescription)
     {
-        //
+        $prescription->delete();
+
+        return PrescriptionResource::make($prescription);
     }
 }
