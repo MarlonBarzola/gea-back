@@ -16,6 +16,7 @@ class PrescriptionResource extends JsonResource
     {
         //return parent::toArray($request);
         return [
+            'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
             'created_at' => $this->created_at,

@@ -17,7 +17,13 @@ class UserController extends Controller
      */
     public function index()
     {
+
+        $search = request('search');
+
         $users = User::orderBy('name', 'asc')
+                ->when($search, function ($query, $search) {
+                    $query->where('name', 'LIKE', "%$search%");
+                })
                 ->where('role_id', User::PATIENT)
                 ->with('prescriptions')
                 ->paginate(10);
