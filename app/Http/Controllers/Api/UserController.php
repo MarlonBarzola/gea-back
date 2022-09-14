@@ -19,6 +19,7 @@ class UserController extends Controller
     {
         $users = User::orderBy('name', 'asc')
                 ->where('role_id', User::PATIENT)
+                ->with('prescriptions')
                 ->paginate(10);
 
         return UserResource::collection($users);

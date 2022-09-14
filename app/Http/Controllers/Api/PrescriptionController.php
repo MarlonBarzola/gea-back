@@ -16,7 +16,9 @@ class PrescriptionController extends Controller
      */
     public function index()
     {
-        $prescriptions = Prescription::orderBy('id', 'desc')->paginate(10);
+        $prescriptions = Prescription::orderBy('id', 'desc')
+                        ->with('user')
+                        ->paginate(10);
         
         return PrescriptionResource::collection($prescriptions);
 

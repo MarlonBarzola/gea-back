@@ -14,6 +14,12 @@ class PrescriptionResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        //return parent::toArray($request);
+        return [
+            'title' => $this->title,
+            'description' => $this->description,
+            'created_at' => $this->created_at,
+            'user' => UserResource::make($this->whenLoaded('user'))
+        ];
     }
 }
