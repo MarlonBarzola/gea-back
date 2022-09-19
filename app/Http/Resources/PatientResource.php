@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PrescriptionResource extends JsonResource
+class PatientResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,13 +14,15 @@ class PrescriptionResource extends JsonResource
      */
     public function toArray($request)
     {
-        //return parent::toArray($request);
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
-            'created_at' => $this->created_at,
-            'user' => UserResource::make($this->whenLoaded('user'))
+            'name' => $this->name,
+            'surname' => $this->surname,
+            'dni' => $this->dni,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'birthday' => $this->birthday,
+            'histories' => HistoryResource::collection($this->whenLoaded('histories'))
         ];
     }
 }

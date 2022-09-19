@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Patient;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Prescription>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\History>
  */
-class PrescriptionFactory extends Factory
+class HistoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,11 +17,13 @@ class PrescriptionFactory extends Factory
      */
     public function definition()
     {
+
         $title = $this->faker->unique()->word(20);
+
         return [
             'title' => $title,
-            'description' => $this->faker->text(250),
-            'user_id' => User::where('role_id', 2)->get()->random()->id,
+            'description' => $this->faker->text(2000),
+            'patient_id' => Patient::all()->random()->id,
         ];
     }
 }

@@ -24,7 +24,7 @@ class UserController extends Controller
                 ->when($search, function ($query, $search) {
                     $query->where('name', 'LIKE', "%$search%");
                 })
-                ->where('role_id', User::PATIENT)
+                ->where('role_id', User::DOCTOR)
                 ->with('prescriptions')
                 ->paginate(10);
 
@@ -44,7 +44,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|string|confirmed|min:6',
         ]);
-        $data['role_id'] = User::PATIENT;
+        $data['role_id'] = User::DOCTOR;
         $data['password'] = Hash::make($data['password']);
 
         $prescription = User::create($data);

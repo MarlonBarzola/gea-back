@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\PrescriptionController;
+use App\Http\Controllers\Api\HistoryController;
+use App\Http\Controllers\Api\PatientController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,7 +24,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['as' => 'api.v1.'], function () {
     
+    //Rutas para crear usuarios administradores y doctores
     Route::apiResource('/users', UserController::class);
-    Route::apiResource('/prescriptions', PrescriptionController::class);
+
+    //Rutas para crear pacientes
+    Route::apiResource('/patients', PatientController::class);
+
+    //Rutas para crear historial clínico
+    Route::apiResource('/histories', HistoryController::class);
 
 });

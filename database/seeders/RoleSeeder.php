@@ -19,7 +19,7 @@ class RoleSeeder extends Seeder
             'name' => 'Admin'
         ]);
         Role::create([
-            'name' => 'Patient'
+            'name' => 'Doctor'
         ]);
     }
 }

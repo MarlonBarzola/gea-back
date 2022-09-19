@@ -13,7 +13,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     const ADMIN = 1;
-    const PATIENT = 2;
+    const DOCTOR = 2;
 
     /**
      * The attributes that are mass assignable.
@@ -45,10 +45,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function prescriptions() {
-        return $this->hasMany(Prescription::class);
-    }
 
     public function role() {
         return $this->belongsTo(Role::class);
