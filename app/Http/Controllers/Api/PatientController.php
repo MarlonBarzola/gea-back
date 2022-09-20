@@ -20,7 +20,8 @@ class PatientController extends Controller
 
         $patients = Patient::orderBy('name', 'asc')
                 ->when($search, function ($query, $search) {
-                    $query->where('name', 'LIKE', "%$search%");
+                    $query->where('name', 'LIKE', "%$search%")
+                          ->orWhere('surname', 'LIKE', "%$search%");
                 })
                 ->included()
                 ->paginate(10);

@@ -97,4 +97,11 @@ class HistoryController extends Controller
 
         return HistoryResource::make($history);
     }
+
+    public function historyByPatient( $patientId ) {
+
+        $histories = History::included()->where('patient_id', $patientId)->get();
+        return HistoryResource::collection($histories);
+
+    }
 }

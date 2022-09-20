@@ -29,8 +29,9 @@ Route::group(['as' => 'api.v1.'], function () {
 
     //Rutas para crear pacientes
     Route::apiResource('/patients', PatientController::class);
-
+    
     //Rutas para crear historial clínico
     Route::apiResource('/histories', HistoryController::class);
+    Route::get('/history/{patientId}/patient', [ HistoryController::class, 'historyByPatient' ]);
 
 });
