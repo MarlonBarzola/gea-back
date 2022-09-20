@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\History;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PatientResource extends JsonResource
@@ -22,7 +23,8 @@ class PatientResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'birthday' => $this->birthday,
-            'histories' => HistoryResource::collection($this->whenLoaded('histories'))
+            'histories' => HistoryResource::collection($this->whenLoaded('histories')),
+            'history_count' => History::where('patient_id', $this->id)->count()
         ];
     }
 }
