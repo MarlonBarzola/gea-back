@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
 
-            $table->string('title');
-            $table->text('description');
+            $table->string('reason'); //motivo de consulta
+            $table->text('personal_history'); //antecedentes patológicos personales
+            $table->text('family_history'); //antecedentes patológicos familiares
+            $table->text('vital_signs'); //signos vitales
             $table->foreignId('patient_id')->constrained()->onDelete('cascade');
 
             $table->timestamps();

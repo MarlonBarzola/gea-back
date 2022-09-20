@@ -16,8 +16,10 @@ class HistoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
+            'reason' => $this->reason,
+            'personal_history' => $this->personal_history,
+            'family_history' => $this->family_history,
+            'vital_signs' => $this->vital_signs,
             'created_at' => $this->created_at,
             'patient' => PatientResource::make($this->whenLoaded('patient'))
         ];

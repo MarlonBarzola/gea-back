@@ -18,11 +18,13 @@ class HistoryFactory extends Factory
     public function definition()
     {
 
-        $title = $this->faker->unique()->word(20);
+        $title = $this->faker->unique()->word(30);
 
         return [
-            'title' => $title,
-            'description' => $this->faker->text(2000),
+            'reason' => $title,
+            'personal_history' => $this->faker->text(),
+            'family_history' => $this->faker->text(),
+            'vital_signs' => $this->faker->text(1000),
             'patient_id' => Patient::all()->random()->id,
         ];
     }

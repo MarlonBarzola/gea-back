@@ -18,14 +18,14 @@ class PatientController extends Controller
     {
         $search = request('search');
 
-        $users = Patient::orderBy('name', 'asc')
+        $patients = Patient::orderBy('name', 'asc')
                 ->when($search, function ($query, $search) {
                     $query->where('name', 'LIKE', "%$search%");
                 })
-                ->with('histories')
+                ->included()
                 ->paginate(10);
 
-        return PatientResource::collection($users);
+        return PatientResource::collection($patients);
     }
 
     /**
@@ -58,7 +58,7 @@ class PatientController extends Controller
      */
     public function show($id)
     {
-        $patient = Patient::with('histories')->get()->find($id);
+        $patient = Patient::included()->findOrFail($id);
         return PatientResource::make($patient);
     }
 
